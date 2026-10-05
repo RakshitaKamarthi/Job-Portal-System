@@ -1,11 +1,14 @@
-#make phone as varchar 15 for job seekers and employers
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 import mysql.connector
 connection = mysql.connector.connect(
-            host='localhost',  
-            user='root',        
-            password='sql@123'
-            )
+    host=os.getenv("DB_HOST", "localhost"),
+    user=os.getenv("DB_USER", "root"),
+    password=os.getenv("DB_PASSWORD", "YOUR_PASSWORD_HERE")
+)
 cursor=connection.cursor()
 cursor.execute("CREATE DATABASE job_portal")
 

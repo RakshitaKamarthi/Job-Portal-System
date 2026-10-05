@@ -5,7 +5,10 @@ import os
 import shutil
 from datetime import datetime
 import bcrypt
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 # Constants
 RESUME_DIR = 'resumes'
 
@@ -17,11 +20,11 @@ if not os.path.exists(RESUME_DIR):
 def create_connection():
     try:
         connection = mysql.connector.connect(
-            host='localhost',  
-            database='job_portal',
-            user='root',        
-            password='sql@123'  
-        )
+            host=os.getenv("DB_HOST", "localhost"),
+            user=os.getenv("DB_USER", "root"),
+            password=os.getenv("DB_PASSWORD", "YOUR_PASSWORD_HERE"),
+            database=os.getenv("DB_NAME", "job_portal")
+)
         if connection.is_connected():
             print("Connected to MySQL database")
         return connection
